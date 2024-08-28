@@ -1,0 +1,46 @@
+{
+  "name": "cf-worker-ip-checker",
+  "version": "1.0.0",
+  "private": true,
+  "description": "A Cloudflare Worker that checks the connecting IP address and returns the result.",
+  "author": "Frederico Freire Boaventura",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/fboaventura/cf-worker-ip-checker.git",
+    "directory": "cf-worker-ip-checker",
+    "branch": "master"
+  },
+  "homepage": "https://fboaventura.dev",
+  "bugs": {
+    "url": "https://github.com/fboaventura/cf-worker-ip-checker/issues"
+  },
+  "keywords": [
+    "cloudflare",
+    "worker",
+    "ip",
+    "checker"
+  ],
+  "readme": "README.md",
+  "scripts": {
+    "deploy": "wrangler deploy",
+    "dev": "wrangler dev",
+    "start": "wrangler dev",
+    "test": "vitest",
+    "cf-typegen": "wrangler types",
+    "css-minify": "cleancss -o dist/style.min.css src/style.css"
+  },
+  "devDependencies": {
+    "@cloudflare/vitest-pool-workers": "^0.4.5",
+    "@cloudflare/workers-types": "^4.20240806.0",
+    "@types/ua-parser-js": "^0.7.39",
+    "clean-css-cli": "^5.6.3",
+    "prettier": "^3.3.3",
+    "typescript": "^5.5.2",
+    "vitest": "1.5.0",
+    "wrangler": "^3.60.3"
+  },
+  "dependencies": {
+    "ua-parser-js": "^1.0.38"
+  }
+}

@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>FFBDev - IP Config</title>
+	<style>
+		${html_style}
+	</style>
+</head>
+<body>
+<nav>
+	<div class="logo">&nbsp;</div>
+</nav>
+<div class="hero">
+	<h1 class="hero__title">${ip}</h1>
+</div>
+<div class>
+	<div class="keybinding">
+		<ul class="keybinding__detail">
+			<h3 class="keybinding__title">IP Address Details</h3>
+			<table class="info-table">
+				<tr>
+					<th scope="row">IP&nbsp;address</th>
+					<td>${ip}</td>
+				</tr>
+				<tr>
+					<th scope="row">Country</th>
+					<td>${cf?.country ?? ""}</td>
+				</tr>
+				<tr>
+					<th scope="row">Region</th>
+					<td>${cf?.region ?? ""}</td>
+				</tr>
+				<tr>
+					<th scope="row">Region&nbsp;code</th>
+					<td>${cf?.regionCode ?? ""}</td>
+				</tr>
+				<tr>
+					<th scope="row">City</th>
+					<td>${cf?.city ?? ""}</td>
+				</tr>
+				<tr>
+					<th scope="row">Latitude</th>
+					<td>${cf?.latitude ?? ""}</td>
+				</tr>
+				<tr>
+					<th scope="row">Longitude</th>
+					<td>${cf?.longitude ?? ""}</td>
+				</tr>
+				<tr>
+					<th scope="row">Timezone</th>
+					<td>${cf?.timezone ?? ""}</td>
+				</tr>
+				<tr>
+					<th scope="row">ASN</th>
+					<td>${cf?.asn ?? ""}</td>
+				</tr>
+				<tr>
+					<th scope="row">ASN (organization)</th>
+					<td>${cf?.asOrganization ?? ""}</td>
+				</tr>
+				<tr>
+					<th scope="row">Hostname</th>
+					<td>&nbsp;</td>
+				</tr>
+				<tr>
+					<th scope="row">User&nbsp;agent</th>
+					<td>${browser.getUA()}</td>
+				</tr>
+			</table>
+		</ul>
+	</div>
+</div>
+<footer class="footer">
+</footer>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"
+				type="660896b0a93e86d164467f2a-text/javascript"></script>
+<script type="660896b0a93e86d164467f2a-text/javascript">hljs.initHighlightingOnLoad();</script>
+<script lang="text/javascript" type="660896b0a93e86d164467f2a-text/javascript">
+
+	var get = function (selector, scope) {
+		scope = scope ? scope : document;
+		return scope.querySelector(selector);
+	};
+
+	var getAll = function (selector, scope) {
+		scope = scope ? scope : document;
+		return scope.querySelectorAll(selector);
+	};
+
+
+	if (document.getElementsByClassName('demo').length > 0) {
+		var i = 0;
+		var txt = `scribbler
+							[Entry mode; press Ctrl+D to save and quit; press Ctrl+C to quit without saving]
+
+							###todo for new year dinner party
+
+							- milk
+							- butter
+							- green onion
+							- lots and lots of kiwis 🥝`;
+		var speed = 60;
+
+		function typeItOut () {
+			if (i < txt.length) {
+				document.getElementsByClassName('demo')[0].innerHTML += txt.charAt(i);
+				i++;
+				setTimeout(typeItOut, speed);
+			}
+		}
+
+		setTimeout(typeItOut, 1800);
+	}
+
+
+	window.addEventListener("load", function() {
+
+		var tabContainers = getAll(".tab__container");
+
+
+		for (var i = 0; i < tabContainers.length; i++) {
+			get('.tab__menu', tabContainers[i]).addEventListener("click", tabClick);
+		}
+
+
+		function tabClick (event) {
+			var scope = event.currentTarget.parentNode;
+			var clickedTab = event.target;
+			var tabs = getAll('.tab', scope);
+			var panes = getAll('.tab__pane', scope);
+			var activePane = get(`.${clickedTab.getAttribute('data-tab')}`, scope);
+
+
+			for (var i = 0; i < tabs.length; i++) {
+				tabs[i].classList.remove('active');
+			}
+
+
+			for (var i = 0; i < panes.length; i++) {
+				panes[i].classList.remove('active');
+			}
+
+
+			clickedTab.classList.add('active');
+			activePane.classList.add('active');
+		}
+	});
+
+
+	var btns = getAll('.js-btn');
+	var sections = getAll('.js-section');
+
+	function setActiveLink(event) {
+
+		for (var i = 0; i < btns.length; i++) {
+			btns[i].classList.remove('selected');
+		}
+
+		event.target.classList.add('selected');
+	}
+
+	function smoothScrollTo(i, event) {
+		var element = sections[i];
+		setActiveLink(event);
+
+		window.scrollTo({
+			'behavior': 'smooth',
+			'top': element.offsetTop - 20,
+			'left': 0
+		});
+	}
+
+	if (btns.length && sections.length > 0) {
+		for (var i = 0; i<btns.length; i++) {
+			btns[i].addEventListener('click', smoothScrollTo.bind(this,i));
+		}
+	}
+
+
+	window.addEventListener('scroll', function () {
+		var docNav = get('.doc__nav > ul');
+
+		if( docNav) {
+			if (window.pageYOffset > 63) {
+				docNav.classList.add('fixed');
+			} else {
+				docNav.classList.remove('fixed');
+			}
+		}
+	});
+
+
+	var topNav = get('.menu');
+	var icon = get('.toggle');
+
+	window.addEventListener('load', function(){
+		function showNav() {
+			if (topNav.className === 'menu') {
+				topNav.className += ' responsive';
+				icon.className += ' open';
+			} else {
+				topNav.className = 'menu';
+				icon.classList.remove('open');
+			}
+		}
+		icon.addEventListener('click', showNav);
+	});
+
+
+</script>
+<script data-cf-settings="660896b0a93e86d164467f2a-|49"
+				defer src="/cdn-cgi/scripts/7d0fa10a/cloudflare-static/rocket-loader.min.js"></script>
+<script crossorigin="anonymous" data-cf-beacon='{"rayId":"8b660d905f8e64d9","version":"2024.8.0","r":1,"token":"6e919407e20843be95d6d22000328ca2","serverTiming":{"name":{"cfL4":true}}}'
+				defer
+				integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ=="
+				src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015"></script>
+
+</body>
+</html>
