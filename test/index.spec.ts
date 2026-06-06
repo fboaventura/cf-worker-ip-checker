@@ -1,8 +1,6 @@
-// test/index.spec.ts
-import { env, createExecutionContext, waitOnExecutionContext, SELF } from 'cloudflare:test';
+import { createExecutionContext, waitOnExecutionContext } from 'cloudflare:test';
 import { describe, it, expect } from 'vitest';
 import worker from '../src/index';
-import { UAParser } from 'ua-parser-js';
 
 const IncomingRequest = Request<unknown, IncomingRequestCfProperties>;
 
@@ -73,6 +71,16 @@ describe('IP Checker Worker', () => {
     expect(response.headers.get('content-type')).toBe('text/plain;charset=UTF-8');
     const text = await response.text();
     expect(text).toMatch(/\d+\.\d+\.\d+\.\d+/); // Simple IP address regex
+  });
+
+  it('responds with plain text for cf-dns-update', async () => {
+    const request = new IncomingRequest('https://example.com', { headers: { 'user-agent': 'cf-dns-update/1.0', 'cf-connecting-ip': '192.168.1.1' } });
+    const ctx = createExecutionContext();
+    const response = await worker.fetch(request, mockEnv, ctx);
+    await waitOnExecutionContext(ctx);
+    expect(response.headers.get('content-type')).toBe('text/plain;charset=UTF-8');
+    const text = await response.text();
+    expect(text).toBe('192.168.1.1\n');
   });
 
   it('responds with JSON content for /json path', async () => {
