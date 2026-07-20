@@ -31,16 +31,16 @@
     "css-minify": "cleancss -o dist/style.min.css src/style.css"
   },
   "devDependencies": {
-    "@cloudflare/vitest-pool-workers": "^0.16.13",
-    "@cloudflare/workers-types": "^4.20260606.1",
-    "@vitest/runner": "4.1.8",
-    "@vitest/snapshot": "4.1.8",
+    "@cloudflare/vitest-pool-workers": "^0.18.6",
+    "@cloudflare/workers-types": "^5.20260719.1",
+    "@vitest/runner": "4.1.10",
+    "@vitest/snapshot": "4.1.10",
     "clean-css-cli": "^5.6.3",
-    "prettier": "^3.8.3",
-    "typescript": "^6.0.3",
-    "vite": "^8.0.16",
-    "vitest": "4.1.8",
-    "wrangler": "^4.98.0"
+    "prettier": "^3.9.5",
+    "typescript": "^7.0.2",
+    "vite": "^8.1.5",
+    "vitest": "4.1.10",
+    "wrangler": "^4.112.0"
   },
   "dependencies": {
     "ua-parser-js": "^2.0.10"

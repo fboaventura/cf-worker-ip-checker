@@ -61,6 +61,7 @@ describe('IP Checker Worker', () => {
     expect(response.headers.get('content-type')).toBe('text/html;charset=UTF-8');
     const text = await response.text();
     expect(text).toContain('<html');
+    expect(text).toContain('<link rel="icon" type="image/png" sizes="64x64" href="/favicon.png">');
   });
 
   it('responds with plain text for text browsers', async () => {

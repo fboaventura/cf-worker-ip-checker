@@ -46,6 +46,7 @@ function generateHTMLContent(ip: string | null, cf: any, userAgent: string | nul
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>IP Checker — ffbdev</title>
+  <link rel="icon" type="image/png" sizes="64x64" href="/favicon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Fragment+Mono:ital@0;1&family=IBM+Plex+Sans:wght@300;400;600&display=swap" rel="stylesheet">
   <style>
