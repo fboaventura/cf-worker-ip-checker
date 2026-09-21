@@ -95,6 +95,45 @@ describe('IP Checker Worker', () => {
     expect(json).toHaveProperty('country');
   });
 
+  it('responds with HTML content for /network path', async () => {
+    const request = new IncomingRequest('https://example.com/network', { headers: { 'user-agent': 'Mozilla/5.0' } });
+    const ctx = createExecutionContext();
+    const response = await worker.fetch(request, mockEnv, ctx);
+    await waitOnExecutionContext(ctx);
+    expect(response.headers.get('content-type')).toBe('text/html;charset=UTF-8');
+    const text = await response.text();
+    expect(text).toContain('Network Test');
+    expect(text).toContain('data-site-row="google"');
+  });
+
+  it('/api/network-test returns a result for a valid site key', async () => {
+    const request = new IncomingRequest('https://example.com/api/network-test?site=github', { headers: { 'user-agent': 'Mozilla/5.0' } });
+    const ctx = createExecutionContext();
+    const response = await worker.fetch(request, mockEnv, ctx);
+    await waitOnExecutionContext(ctx);
+    expect(response.headers.get('content-type')).toBe('application/json;charset=UTF-8');
+    const json: any = await response.json();
+    expect(json).toHaveProperty('site', 'github');
+    expect(json).toHaveProperty('reachable');
+    expect(json).toHaveProperty('latencyMs');
+  });
+
+  it('/api/network-test returns 400 for an unknown site key', async () => {
+    const request = new IncomingRequest('https://example.com/api/network-test?site=not-a-real-site', { headers: { 'user-agent': 'Mozilla/5.0' } });
+    const ctx = createExecutionContext();
+    const response = await worker.fetch(request, mockEnv, ctx);
+    await waitOnExecutionContext(ctx);
+    expect(response.status).toBe(400);
+  });
+
+  it('/api/network-test returns 400 when site param is missing', async () => {
+    const request = new IncomingRequest('https://example.com/api/network-test', { headers: { 'user-agent': 'Mozilla/5.0' } });
+    const ctx = createExecutionContext();
+    const response = await worker.fetch(request, mockEnv, ctx);
+    await waitOnExecutionContext(ctx);
+    expect(response.status).toBe(400);
+  });
+
   it('responds with 404 for non-existent path', async () => {
     const request = new IncomingRequest('https://example.com/nonexistent', { headers: { 'user-agent': 'Mozilla/5.0' } });
     const ctx = createExecutionContext();
